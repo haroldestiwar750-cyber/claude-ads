@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expediente — PeritAI</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/expediente.css">
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">⚖️ PeritAI</a>
+        <div id="exp-titulo-header" class="despacho">Cargando...</div>
+    </header>
+
+    <main class="layout-expediente">
+
+        <!-- Panel izquierdo: info + documentos -->
+        <aside class="panel-lateral">
+            <div class="info-exp" id="info-expediente">
+                <div class="loading">Cargando expediente...</div>
+            </div>
+
+            <div class="seccion-docs">
+                <h3>Documentos</h3>
+                <div class="zona-drop" id="zona-drop">
+                    <div class="drop-icono">📎</div>
+                    <p>Arrastra archivos aquí<br><small>PDF, Word, Excel, Imágenes</small></p>
+                    <input type="file" id="input-archivo" multiple accept=".pdf,.docx,.doc,.xlsx,.xls,.jpg,.jpeg,.png,.tiff">
+                    <button class="btn-secundario" onclick="document.getElementById('input-archivo').click()">
+                        Seleccionar archivos
+                    </button>
+                </div>
+                <div id="lista-docs"></div>
+            </div>
+        </aside>
+
+        <!-- Panel central: agente + informe -->
+        <section class="panel-central">
+            <div class="tabs">
+                <button class="tab activo" onclick="cambiarTab('chat')">💬 Agente IA</button>
+                <button class="tab" onclick="cambiarTab('informe')">📄 Informe</button>
+                <button class="tab" onclick="cambiarTab('verificar')">✅ Verificar</button>
+            </div>
+
+            <!-- Tab: Chat con el agente -->
+            <div id="tab-chat" class="tab-contenido activo">
+                <div id="mensajes-chat" class="chat-box">
+                    <div class="mensaje sistema">
+                        👋 Hola, soy PeritAI. Estoy listo para ayudarte con este expediente.
+                        Puedes preguntarme sobre los documentos, pedirme que genere secciones
+                        del informe, o verificar si falta información.
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <textarea id="input-chat" placeholder="Escribe tu consulta aquí..." rows="3"
+                        onkeydown="if(event.ctrlKey && event.key==='Enter') enviarMensaje()"></textarea>
+                    <button class="btn-primario" onclick="enviarMensaje()">Enviar (Ctrl+Enter)</button>
+                </div>
+                <div class="sugerencias">
+                    <span>Sugerencias:</span>
+                    <button onclick="sugerir('¿Qué información falta en este expediente?')">¿Qué falta?</button>
+                    <button onclick="sugerir('Resume los documentos disponibles')">Resumir docs</button>
+                    <button onclick="sugerir('Genera la sección de antecedentes del informe')">Generar antecedentes</button>
+                    <button onclick="sugerir('Detecta inconsistencias en los datos')">Verificar datos</button>
+                </div>
+            </div>
+
+            <!-- Tab: Editor de informe -->
+            <div id="tab-informe" class="tab-contenido oculto">
+                <div class="acciones-informe">
+                    <div class="botones-secciones">
+                        <span>Generar sección:</span>
+                        <button onclick="generarSeccion('antecedentes')">Antecedentes</button>
+                        <button onclick="generarSeccion('objeto')">Objeto</button>
+                        <button onclick="generarSeccion('metodologia')">Metodología</button>
+                        <button onclick="generarSeccion('hallazgos')">Hallazgos</button>
+                        <button onclick="generarSeccion('valoracion')">Valoración</button>
+                        <button onclick="generarSeccion('conclusiones')">Conclusiones</button>
+                    </div>
+                </div>
+                <div id="editor-informe" class="editor-contenido">
+                    <div class="editor-vacio">
+                        📄 El informe aparecerá aquí conforme generes las secciones.
+                        <br>Usa los botones de arriba o pídele al agente que genere secciones.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Verificación -->
+            <div id="tab-verificar" class="tab-contenido oculto">
+                <div class="verificacion-header">
+                    <h3>Verificación del expediente</h3>
+                    <button class="btn-primario" onclick="verificarDatos()">🔍 Verificar ahora</button>
+                </div>
+                <div id="resultado-verificacion">
+                    <p class="info-text">Haz clic en "Verificar ahora" para detectar información faltante.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const EXPEDIENTE_ID = "{{ expediente_id }}";
+    </script>
+    <script src="/static/js/expediente.js"></script>
+</body>
+</html>

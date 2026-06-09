@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeritAI — {{ nombre_despacho }}</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="logo">⚖️ PeritAI</div>
+        <div class="despacho">{{ nombre_despacho }}</div>
+    </header>
+
+    <main>
+        <div class="bienvenida">
+            <h1>Sistema de Informes Periciales</h1>
+            <p>Elabora informes técnicos profesionales con asistencia de inteligencia artificial.</p>
+        </div>
+
+        <div class="acciones-top">
+            <button class="btn-primario" onclick="mostrarModalNuevo()">
+                + Nuevo Expediente
+            </button>
+        </div>
+
+        <div class="grid-stats">
+            <div class="stat-card">
+                <span id="total-exp">—</span>
+                <label>Expedientes</label>
+            </div>
+            <div class="stat-card activos">
+                <span id="exp-activos">—</span>
+                <label>Activos</label>
+            </div>
+            <div class="stat-card revision">
+                <span id="exp-revision">—</span>
+                <label>En revisión</label>
+            </div>
+        </div>
+
+        <section class="lista-expedientes">
+            <h2>Expedientes recientes</h2>
+            <div id="lista-exp" class="loading">Cargando...</div>
+        </section>
+    </main>
+
+    <!-- Modal nuevo expediente -->
+    <div id="modal-nuevo" class="modal oculto">
+        <div class="modal-contenido">
+            <h2>Nuevo Expediente</h2>
+            <form id="form-nuevo-exp">
+                <label>Título del expediente *</label>
+                <input type="text" id="titulo" placeholder="Ej: Siniestro vehículo Toyota Hilux" required>
+
+                <label>Tipo de pericia *</label>
+                <select id="tipo" required>
+                    <option value="">— Seleccionar —</option>
+                    <option value="danos_siniestros">Daños y Siniestros</option>
+                    <option value="valoracion_inmuebles">Valoración de Inmuebles</option>
+                    <option value="accidentes_viales">Accidentes Viales</option>
+                    <option value="danos_patrimoniales">Daños Patrimoniales</option>
+                </select>
+
+                <label>Nombre del cliente *</label>
+                <input type="text" id="cliente" placeholder="Nombre completo o empresa" required>
+
+                <label>Contacto del cliente</label>
+                <input type="text" id="contacto" placeholder="Teléfono o email">
+
+                <label>Fecha del siniestro/evento</label>
+                <input type="date" id="fecha-siniestro">
+
+                <label>Ubicación</label>
+                <input type="text" id="ubicacion" placeholder="Dirección o descripción del lugar">
+
+                <label>Descripción breve</label>
+                <textarea id="descripcion" rows="3" placeholder="Describe brevemente el caso..."></textarea>
+
+                <div class="modal-acciones">
+                    <button type="button" class="btn-secundario" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-primario">Crear Expediente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
