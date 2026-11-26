@@ -1,0 +1,21 @@
+'==============================================================
+' Código del libro (módulo ThisWorkbook / EsteLibro)
+'  * Al abrir: activa el cálculo, protege las hojas en modo
+'    "solo interfaz" (las macros pueden escribir) y crea las carpetas
+'  * Al cerrar: copia de seguridad automática una vez al día
+'==============================================================
+Option Explicit
+
+Private Sub Workbook_Open()
+    On Error Resume Next
+    Application.Calculation = xlCalculationAutomatic
+    DesprotegerTodo
+    ProtegerTodo
+    Carpeta ""
+    Me.Worksheets(SH_INI).Activate
+End Sub
+
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+    On Error Resume Next
+    CopiaAutomaticaDiaria
+End Sub
