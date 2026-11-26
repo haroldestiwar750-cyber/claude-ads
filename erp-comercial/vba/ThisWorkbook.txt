@@ -1,0 +1,18 @@
+' Codigo del modulo ThisWorkbook (EsteLibro). Lo inserta InstalarERP.
+Option Explicit
+
+Private Sub Workbook_Open()
+    modSeguridad.AlAbrir
+End Sub
+
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+    modSeguridad.AlCerrar
+End Sub
+
+Private Sub Workbook_BeforeSave(ByVal SaveAsUI As Boolean, Cancel As Boolean)
+    modSeguridad.AntesDeGuardar SaveAsUI, Cancel
+End Sub
+
+Private Sub Workbook_SheetChange(ByVal Sh As Object, ByVal Target As Range)
+    modSeguridad.ValidarEdicion Sh, Target
+End Sub
